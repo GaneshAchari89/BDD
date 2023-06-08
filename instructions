@@ -1,0 +1,11 @@
+-------To run------
+behave features/feature_file_name
+
+-------To run all tests------
+behave features/
+
+-------To generate allure------
+behave -f allure_behave.formatter:AllureFormatter -o reports/ features/..
+
+----- To convert allure json to html format------
+allure serve reports/

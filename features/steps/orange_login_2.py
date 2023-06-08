@@ -6,7 +6,6 @@ from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 
 
-
 @when('open OrangeHRM Home page')
 def openHomePage(context):
     context.driver.get("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
@@ -29,6 +28,11 @@ def clickLogin(context):
 @then('User must successfully login to the dashboard page')
 def verifyLogin(context):
     time.sleep(5)
-    header = context.driver.find_element(By.XPATH, "//h6[contains(@class,'topbar-header-breadcrumb-module')]").text
-    assert header == "Dashboard"
-
+    try:
+        header = context.driver.find_element(By.XPATH, "//h6[contains(@class,'topbar-header-breadcrumb-module')]").text
+    except:
+        context.driver.close()
+        assert False, "Test Failed"
+    if header == "Dashboard":
+        context.driver.close()
+        assert True, "Test passed"
